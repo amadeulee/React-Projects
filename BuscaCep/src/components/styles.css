@@ -102,3 +102,12 @@
     transform: translateX(0px);
   }
 }
+
+@media (max-width: 760px) {
+  .title {
+    font-size: 45px;
+  }
+  .informations {
+    width: 350px;
+  }
+}

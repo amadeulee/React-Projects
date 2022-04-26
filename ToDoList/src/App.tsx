@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './App.css';
+
 import { InputField } from './components/InputField';
 import { ListaTarefas } from './components/ListaTarefas';
 import { Tarefa } from './model';
@@ -18,7 +18,7 @@ function App() {
       setTarefa('');
     }
   };
-  console.log(tarefa);
+  // console.log(tarefa);
   console.log(listaTarefas);
 
   return (
