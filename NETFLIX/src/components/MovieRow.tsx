@@ -1,11 +1,13 @@
-import { MovieList } from '../Model';
+import { item, MovieList } from '../Model';
+import ChosenDisplay from './ChosenDisplay';
 import './MovieRow.css';
 
 type MovieRowProps = {
   item: MovieList;
+  frontDisplay: React.Dispatch<React.SetStateAction<item | undefined>>;
 };
 
-const MovieRow = ({ item }: MovieRowProps) => {
+const MovieRow = ({ item, frontDisplay }: MovieRowProps) => {
   const { title, items } = item;
   return (
     <div className="movieRow">
@@ -14,10 +16,20 @@ const MovieRow = ({ item }: MovieRowProps) => {
         <div className="movieRow--list">
           {items.results.length > 0 &&
             items.results.map((item, key) => (
-              <div key={key} className="movieRow--item">
+              // <ChosenDisplay
+              //   key={key}
+              //   item={item}
+              //   frontDisplay={frontDisplay}
+              // />
+
+              <div className="movieRow--item">
                 <img
                   src={`https://image.tmdb.org/t/p/w300/${item.poster_path}`}
                   alt={item.original_title}
+                  onClick={e => {
+                    e.preventDefault();
+                    frontDisplay(item);
+                  }}
                 ></img>
               </div>
             ))}

@@ -1,12 +1,16 @@
 export interface MovieList {
   category: string;
-  items: {
-    page: number;
-    results: Results[];
-    total_pages: number;
-    total_results: number;
-  };
+  items: item;
   title: string;
+}
+
+export interface item {
+  page: number;
+  results: Results[];
+  total_pages: number;
+  total_results: number;
+  original_title: string;
+  poster_path: string;
 }
 
 interface Results {

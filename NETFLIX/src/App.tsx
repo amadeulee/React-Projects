@@ -3,14 +3,16 @@ import './App.css';
 import FeaturedMovie from './components/FeaturedMovie';
 import Header from './components/Header';
 import MovieRow from './components/MovieRow';
-import { MovieList } from './Model';
+import { item, MovieList } from './Model';
 import Tmdb from './services/Tmdb';
 
 function App() {
   const [movieList, setMovieList] = useState<MovieList[]>([]);
   const [featuredData, setFeaturedData] = useState<{}>();
   const [blackHeader, setBlackHeader] = useState<boolean>(false);
+  const [chosenDisplay, setChoseDisplay] = useState<item>();
 
+  console.log(chosenDisplay);
   useEffect(() => {
     const loadAll = async () => {
       // Taking all lists
@@ -26,7 +28,6 @@ function App() {
       let chosen = originals[0].items.results[randomOriginal];
       let chosenInfo = await Tmdb.getMovieInfo(chosen.id, 'tv');
       setFeaturedData(chosenInfo);
-      console.log(chosenInfo);
     };
     loadAll();
   }, []);
@@ -46,11 +47,21 @@ function App() {
   }, []);
   return (
     <div className="page">
+      {chosenDisplay && (
+        <div
+          className="frontDisplay--outside"
+          onClick={() => {
+            setChoseDisplay(undefined);
+          }}
+        >
+          <div className="frontDisplay">Teste</div>
+        </div>
+      )}
       <Header black={blackHeader} />
       {featuredData && <FeaturedMovie item={featuredData} />}
       <section className="lists">
         {movieList.map((item, key) => (
-          <MovieRow key={key} item={item} />
+          <MovieRow key={key} item={item} frontDisplay={setChoseDisplay} />
         ))}
       </section>
     </div>

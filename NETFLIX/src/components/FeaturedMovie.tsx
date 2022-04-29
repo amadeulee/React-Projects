@@ -14,7 +14,7 @@ export default ({ item }: FeaturedMovieProps) => {
   for (let i in item.genres) {
     genres.push(item.genres[i].name);
   }
-  console.log(genres);
+
   return (
     <section
       className="featured"

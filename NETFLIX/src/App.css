@@ -14,3 +14,25 @@ body {
 .lists {
   margin-top: -150px;
 }
+
+.frontDisplay--outside {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  background-color: transparent;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999999999999;
+}
+.frontDisplay {
+  background-color: #333;
+  position: fixed;
+  z-index: 999999999999999;
+  top: 10%;
+  left: 10%;
+  right: 10%;
+  bottom: 10%;
+}
