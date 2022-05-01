@@ -1,10 +1,10 @@
-import { item, MovieList } from '../Model';
+import { Item, MovieList, Results } from '../Model';
 import ChosenDisplay from './ChosenDisplay';
 import './MovieRow.css';
 
 type MovieRowProps = {
   item: MovieList;
-  frontDisplay: React.Dispatch<React.SetStateAction<item | undefined>>;
+  frontDisplay: React.Dispatch<React.SetStateAction<Results | undefined>>;
 };
 
 const MovieRow = ({ item, frontDisplay }: MovieRowProps) => {
@@ -15,20 +15,20 @@ const MovieRow = ({ item, frontDisplay }: MovieRowProps) => {
       <div className="movieRow--listarea">
         <div className="movieRow--list">
           {items.results.length > 0 &&
-            items.results.map((item, key) => (
+            items.results.map((eachItem, key) => (
               // <ChosenDisplay
               //   key={key}
               //   item={item}
               //   frontDisplay={frontDisplay}
               // />
 
-              <div className="movieRow--item">
+              <div key={key} className="movieRow--item">
                 <img
-                  src={`https://image.tmdb.org/t/p/w300/${item.poster_path}`}
-                  alt={item.original_title}
+                  src={`https://image.tmdb.org/t/p/w300/${eachItem.poster_path}`}
+                  alt={eachItem.original_title}
                   onClick={e => {
                     e.preventDefault();
-                    frontDisplay(item);
+                    frontDisplay(eachItem);
                   }}
                 ></img>
               </div>

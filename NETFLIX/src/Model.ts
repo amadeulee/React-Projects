@@ -1,10 +1,10 @@
 export interface MovieList {
   category: string;
-  items: item;
+  items: Item;
   title: string;
 }
 
-export interface item {
+export interface Item {
   page: number;
   results: Results[];
   total_pages: number;
@@ -13,7 +13,8 @@ export interface item {
   poster_path: string;
 }
 
-interface Results {
+export interface Results {
+  id: number;
   poster_path: string;
   backdrop_path: string;
   original_title: string;

@@ -1,28 +1,47 @@
-import { item, MovieList } from '../Model';
+import { Item, MovieList, Results } from '../Model';
 import './ChosenDisplay.css';
 
 type ChosenDisplayProps = {
-    chosenDisplay: item | undefined; 
-  item: item;
-  frontDisplay: React.Dispatch<React.SetStateAction<item | undefined>>;
+  frontDisplay: React.Dispatch<React.SetStateAction<Results | undefined>>;
 };
 
-export default ({ item, frontDisplay , chosenDisplay}: ChosenDisplayProps) => {
+export default ({ frontDisplay }: ChosenDisplayProps) => {
   return (
-      {chosenDisplay && (
-          <div></div>
-      )}
-  ) 
-    
-      {chosenDisplay && (
-        <div>
-          className="frontDisplay--outside"
+    <div className="modal">
+      <div
+        className="frontDisplay--outside"
+        onClick={() => {
+          frontDisplay(undefined);
+        }}
+      ></div>
+
+      <div className="frontDisplay">
+        <button
+          type="button"
+          className="button--close"
           onClick={() => {
             frontDisplay(undefined);
-          }}  
+          }}
         >
-          <div className="frontDisplay">Teste</div>
+          x
+        </button>
+        <div className="modal--section">
+          <section className="modal--section1">Parte 1asdasdasdasdadas</section>
+          <section className="modal--section2">Parte 2</section>
         </div>
-  )
+      </div>
+    </div>
+  );
 };
+
+{
+  /* <div>
+          <div
+            className="frontDisplay--outside"
+            onClick={() => {
+              setChoseDisplay(undefined);
+            }}
+          ></div>
+          <div className="frontDisplay">Teste</div>
+        </div> */
 }
