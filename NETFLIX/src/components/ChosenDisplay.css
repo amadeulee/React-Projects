@@ -60,13 +60,26 @@
 .modal--section {
   display: flex;
   flex-direction: row;
-  width: 500px;
+  width: 100%;
+  flex-grow: 1;
   justify-content: space-between;
 }
 
-.modal--section1 {
-  left: 20%;
-}
+.modal--section1,
 .modal--section2 {
-  right: 20%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.modal--division {
+  height: 80%;
+  align-self: center;
+  color: #fff;
+  background-color: #fff;
 }

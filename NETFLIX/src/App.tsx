@@ -13,7 +13,7 @@ function App() {
   const [blackHeader, setBlackHeader] = useState<boolean>(false);
   const [chosenDisplay, setChoseDisplay] = useState<Results>();
 
-  console.log(chosenDisplay);
+  // console.log(chosenDisplay);
   useEffect(() => {
     const loadAll = async () => {
       // Taking all lists
@@ -27,11 +27,13 @@ function App() {
       );
 
       let chosen = originals[0].items.results[randomOriginal];
-      let chosenInfo = await Tmdb.getMovieInfo(chosen.id, 'tv');
+      let chosenInfo = await Tmdb.getMovieInfo(String(chosen.id), 'tv');
+
       setFeaturedData(chosenInfo);
-      console.log(chosenInfo);
+      // console.log(chosenInfo);
       console.log(featuredData);
     };
+
     loadAll();
   }, []);
 
@@ -48,6 +50,7 @@ function App() {
       window.removeEventListener('scroll', scrollListener);
     };
   }, []);
+
   return (
     <div className="page">
       {chosenDisplay && <ChosenDisplay frontDisplay={setChoseDisplay} />}

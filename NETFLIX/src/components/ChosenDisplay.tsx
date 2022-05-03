@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { Item, MovieList, Results } from '../Model';
+import Tmdb from '../services/Tmdb';
 import './ChosenDisplay.css';
 
 type ChosenDisplayProps = {
@@ -26,8 +28,16 @@ export default ({ frontDisplay }: ChosenDisplayProps) => {
           x
         </button>
         <div className="modal--section">
-          <section className="modal--section1">Parte 1asdasdasdasdadas</section>
-          <section className="modal--section2">Parte 2</section>
+          <section className="modal--section1">
+            <h4>Detalhes:</h4>
+            <div className="modal--section1-informations">
+              <div className="modal--section1-title"></div>
+            </div>
+          </section>
+          <hr className="modal--division"></hr>
+          <section className="modal--section2">
+            <h4>Itens recomendados</h4>
+          </section>
         </div>
       </div>
     </div>

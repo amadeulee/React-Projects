@@ -37,10 +37,16 @@ export default ({ item }: FeaturedMovieProps) => {
           </div>
           <div className="featured--description">{item.overview}</div>
           <div className="featured--buttons">
-            <a className="featured--watchbutton" href={`/watch/${item.id}`}>
+            <a
+              className="featured--watchbutton"
+              href={`/watch/${String(item.id)}`}
+            >
               ▶ Assistir
             </a>
-            <a className="featured--mylistbutton" href={`/list/add/${item.id}`}>
+            <a
+              className="featured--mylistbutton"
+              href={`/list/add/${String(item.id)}`}
+            >
               + Minha Lista
             </a>
           </div>
