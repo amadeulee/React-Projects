@@ -1,8 +1,12 @@
 //API KEY = 893a77bb80325b17c47ba528b0e276ef
 //API DATABASE = https://api.themoviedb.org/3
 // 38c007f28d5b66f36b9c3cf8d8452a4b
+// AIzaSyAr9-z7BWsZIrcf1pgasd2HzjkJDc7ojQE
 
 import axios from 'axios';
+import { Item } from '../Model';
+import { SeriesInfo } from './../ModalModel';
+import { MovieModel } from './../MovieModel';
 
 const API_KEY = '893a77bb80325b17c47ba528b0e276ef';
 const API_BASE_URL = 'https://api.themoviedb.org/3';
@@ -83,12 +87,40 @@ export default {
     ];
   },
   getMovieInfo: async (movieId: string, type: string) => {
-    let informations = {};
-
-    informations &&= await generalFetch(
+    let informations: SeriesInfo = await generalFetch(
       `/${type}/${movieId}?language=pt-BR&api_key=${API_KEY}`
     );
 
     return informations;
+  },
+  getModalInfo: async (movieId: string, type: string) => {
+    switch (type) {
+      case 'movie':
+        let informations: SeriesInfo = await generalFetch(
+          `/${type}/${movieId}?language=pt-BR&api_key=${API_KEY}`
+        );
+        return informations;
+
+      case 'tv':
+        let informations1: MovieModel = await generalFetch(
+          `/${type}/${movieId}?language=pt-BR&api_key=${API_KEY}`
+        );
+        return informations1;
+    }
+  },
+  getSimilarList: async (movieId: string, type: string) => {
+    switch (type) {
+      case 'movie':
+        let informations: Item = await generalFetch(
+          `/${type}/${movieId}/similar?language=pt-BR&api_key=${API_KEY}`
+        );
+        return informations;
+
+      case 'tv':
+        let informations1: Item = await generalFetch(
+          `/${type}/${movieId}/similar?language=pt-BR&api_key=${API_KEY}`
+        );
+        return informations1;
+    }
   },
 };

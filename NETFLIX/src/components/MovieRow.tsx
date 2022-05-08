@@ -1,18 +1,18 @@
 import { Item, MovieList, Results } from '../Model';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ChosenDisplay from './ChosenDisplay';
 import './MovieRow.css';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 type MovieRowProps = {
   item: MovieList;
+  handleModal: (eachItem: Results) => Promise<void>;
   frontDisplay: React.Dispatch<React.SetStateAction<Results | undefined>>;
 };
-
-const MovieRow = ({ item, frontDisplay }: MovieRowProps) => {
+const MovieRow = ({ item, frontDisplay, handleModal }: MovieRowProps) => {
   const { title, items } = item;
 
-  const [scrollX, setScrollX] = useState<number>(-400);
+  const [scrollX, setScrollX] = useState<number>(0);
 
   const handleLeftArrow = () => {
     let x = scrollX + Math.round(window.innerWidth / 2);
@@ -61,6 +61,7 @@ const MovieRow = ({ item, frontDisplay }: MovieRowProps) => {
                   onClick={e => {
                     e.preventDefault();
                     frontDisplay(eachItem);
+                    handleModal(eachItem);
                   }}
                 ></img>
               </div>
