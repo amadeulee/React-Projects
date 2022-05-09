@@ -88,6 +88,7 @@ function App() {
           modalInfo={modalSerie}
           similarList={similarList}
           handleModal={handleModal}
+          setSimilarList={setSimilarList}
         />
       )}
       <Header black={blackHeader} />
@@ -99,6 +100,7 @@ function App() {
             item={item}
             frontDisplay={setChoseDisplay}
             handleModal={handleModal}
+            setSimilarList={setSimilarList}
           />
         ))}
       </section>

@@ -8,8 +8,14 @@ type MovieRowProps = {
   item: MovieList;
   handleModal: (eachItem: Results) => Promise<void>;
   frontDisplay: React.Dispatch<React.SetStateAction<Results | undefined>>;
+  setSimilarList: React.Dispatch<React.SetStateAction<Item | undefined>>;
 };
-const MovieRow = ({ item, frontDisplay, handleModal }: MovieRowProps) => {
+const MovieRow = ({
+  item,
+  frontDisplay,
+  handleModal,
+  setSimilarList,
+}: MovieRowProps) => {
   const { title, items } = item;
 
   const [scrollX, setScrollX] = useState<number>(0);
@@ -60,6 +66,7 @@ const MovieRow = ({ item, frontDisplay, handleModal }: MovieRowProps) => {
                   alt={eachItem.original_title}
                   onClick={e => {
                     e.preventDefault();
+                    setSimilarList(undefined);
                     frontDisplay(eachItem);
                     handleModal(eachItem);
                   }}

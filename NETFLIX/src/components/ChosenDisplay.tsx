@@ -10,6 +10,7 @@ type ChosenDisplayProps = {
   modalInfo: SeriesInfo | MovieModel | undefined;
   similarList: Item | undefined;
   handleModal: (eachItem: Results) => Promise<void>;
+  setSimilarList: React.Dispatch<React.SetStateAction<Item | undefined>>;
 };
 
 export default ({
@@ -17,18 +18,8 @@ export default ({
   modalInfo,
   similarList,
   handleModal,
+  setSimilarList,
 }: ChosenDisplayProps) => {
-  const [scrollY, setScrollY] = useState<number>(0);
-  const element = document.getElementById('similarList');
-
-  const scrollingTop = () => {
-    let yPixel = element?.scrollTop;
-    let scrollDown: number = yPixel !== undefined ? scrollY + yPixel : scrollY;
-
-    console.log(yPixel);
-
-    setScrollY(scrollDown);
-  };
   return (
     <div className="modal">
       <div
@@ -117,7 +108,7 @@ export default ({
           <section className="modal--section2">
             <h4 style={{ fontSize: '25px' }}>Itens recomendados:</h4>
             <div id="similarList" className="modal--section2-similarList">
-              {similarList &&
+              {similarList ? (
                 similarList.results.map((eachItem, key) => (
                   <div key={key} className="movieRow--item">
                     <img
@@ -125,12 +116,21 @@ export default ({
                       alt={eachItem.original_title}
                       onClick={e => {
                         e.preventDefault();
+                        setSimilarList(undefined);
                         frontDisplay(eachItem);
                         handleModal(eachItem);
                       }}
                     ></img>
                   </div>
-                ))}
+                ))
+              ) : (
+                <div className="loading">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/5/54/Ajux_loader.gif"
+                    alt="Carregando"
+                  ></img>
+                </div>
+              )}
             </div>
           </section>
         </div>
