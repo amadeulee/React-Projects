@@ -68,7 +68,14 @@ export default ({
                         className="youtube--video"
                         // width="560"
                         // height="315"
-                        src={`https://www.youtube.com/embed/${trailerVideo?.results[0].key}`}
+
+                        src={`https://www.youtube.com/embed/${
+                          trailerVideo?.results[
+                            Math.floor(
+                              Math.random() * (trailerVideo?.results.length - 1)
+                            )
+                          ].key
+                        }`}
                         title="YouTube video player"
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -108,7 +115,14 @@ export default ({
                           className="youtube--video"
                           width="560"
                           height="315"
-                          src={`https://www.youtube.com/embed/${trailerVideo?.results[0].key}`}
+                          src={`https://www.youtube.com/embed/${
+                            trailerVideo?.results[
+                              Math.floor(
+                                Math.random() *
+                                  (trailerVideo?.results.length - 1)
+                              )
+                            ].key
+                          }`}
                           title="YouTube video player"
                           frameBorder="0"
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

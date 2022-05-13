@@ -120,7 +120,7 @@
 
 .modal--section1-image {
   width: 80%;
-  height: 40vh;
+  min-height: 40vh;
   display: flex;
   align-self: center;
   margin-bottom: 20px;
