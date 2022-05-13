@@ -3,6 +3,7 @@ import { SeriesInfo } from '../ModalModel';
 import { Item, MovieList, Results } from '../Model';
 import { MovieModel } from '../MovieModel';
 import Tmdb from '../services/Tmdb';
+import { Trailer } from '../TrailerModel';
 import './ChosenDisplay.css';
 
 type ChosenDisplayProps = {
@@ -11,6 +12,7 @@ type ChosenDisplayProps = {
   similarList: Item | undefined;
   handleModal: (eachItem: Results) => Promise<void>;
   setSimilarList: React.Dispatch<React.SetStateAction<Item | undefined>>;
+  trailerVideo: Trailer | undefined;
 };
 
 export default ({
@@ -19,6 +21,7 @@ export default ({
   similarList,
   handleModal,
   setSimilarList,
+  trailerVideo,
 }: ChosenDisplayProps) => {
   return (
     <div className="modal">
@@ -39,40 +42,11 @@ export default ({
         >
           x
         </button>
-        <div className="modal--section">
-          <section className="modal--section1">
-            {modalInfo !== undefined &&
-            modalInfo.hasOwnProperty('original_name') ? (
-              <div className="modal--section1-informations">
-                <h4
-                  style={{
-                    display: 'flex',
-                    alignSelf: 'center',
-                    fontSize: '25px',
-                  }}
-                >
-                  Detalhes:
-                </h4>
-                <div className="modal--section1-description">
-                  <div className="modal--section1-image">
-                    <img
-                      src={`https://image.tmdb.org/t/p/w300/${modalInfo.backdrop_path}`}
-                      alt="backdrop"
-                      style={{ width: '50%', borderRadius: '5px' }}
-                    ></img>
-                  </div>
-                  <div className="modal--section1-title">
-                    <strong>Título: </strong>
-                    {modalInfo?.original_name}
-                  </div>
-                  <div className="modal--section1-overview">
-                    <strong>Descrição: </strong>
-                    {modalInfo.overview}
-                  </div>
-                </div>
-              </div>
-            ) : (
-              modalInfo !== undefined && (
+        {similarList && modalInfo && trailerVideo ? (
+          <div className="modal--section">
+            <section className="modal--section1">
+              {modalInfo !== undefined &&
+              modalInfo.hasOwnProperty('original_name') ? (
                 <div className="modal--section1-informations">
                   <h4
                     style={{
@@ -85,15 +59,25 @@ export default ({
                   </h4>
                   <div className="modal--section1-description">
                     <div className="modal--section1-image">
-                      <img
+                      {/* <img
                         src={`https://image.tmdb.org/t/p/w300/${modalInfo.backdrop_path}`}
                         alt="backdrop"
                         style={{ width: '50%', borderRadius: '5px' }}
-                      ></img>
+                      ></img> */}
+                      <iframe
+                        className="youtube--video"
+                        // width="560"
+                        // height="315"
+                        src={`https://www.youtube.com/embed/${trailerVideo?.results[0].key}`}
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      ></iframe>
                     </div>
                     <div className="modal--section1-title">
                       <strong>Título: </strong>
-                      {modalInfo?.original_title}
+                      {modalInfo?.original_name}
                     </div>
                     <div className="modal--section1-overview">
                       <strong>Descrição: </strong>
@@ -101,39 +85,79 @@ export default ({
                     </div>
                   </div>
                 </div>
-              )
-            )}
-          </section>
-          <hr className="modal--division"></hr>
-          <section className="modal--section2">
-            <h4 style={{ fontSize: '25px' }}>Itens recomendados:</h4>
-            <div id="similarList" className="modal--section2-similarList">
-              {similarList ? (
-                similarList.results.map((eachItem, key) => (
-                  <div key={key} className="movieRow--item">
-                    <img
-                      src={`https://image.tmdb.org/t/p/w300/${eachItem.poster_path}`}
-                      alt={eachItem.original_title}
-                      onClick={e => {
-                        e.preventDefault();
-                        setSimilarList(undefined);
-                        frontDisplay(eachItem);
-                        handleModal(eachItem);
-                      }}
-                    ></img>
-                  </div>
-                ))
               ) : (
-                <div className="loading">
-                  <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/5/54/Ajux_loader.gif"
-                    alt="Carregando"
-                  ></img>
-                </div>
+                modalInfo !== undefined && (
+                  <div className="modal--section1-informations">
+                    <h4
+                      style={{
+                        display: 'flex',
+                        alignSelf: 'center',
+                        fontSize: '25px',
+                      }}
+                    >
+                      Detalhes:
+                    </h4>
+                    <div className="modal--section1-description">
+                      <div className="modal--section1-image">
+                        {/* <img
+                          src={`https://image.tmdb.org/t/p/w300/${modalInfo.backdrop_path}`}
+                          alt="backdrop"
+                          style={{ width: '50%', borderRadius: '5px' }}
+                        ></img> */}
+                        <iframe
+                          className="youtube--video"
+                          width="560"
+                          height="315"
+                          src={`https://www.youtube.com/embed/${trailerVideo?.results[0].key}`}
+                          title="YouTube video player"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        ></iframe>
+                      </div>
+                      <div className="modal--section1-title">
+                        <strong>Título: </strong>
+                        {modalInfo?.original_title}
+                      </div>
+                      <div className="modal--section1-overview">
+                        <strong>Descrição: </strong>
+                        {modalInfo.overview}
+                      </div>
+                    </div>
+                  </div>
+                )
               )}
-            </div>
-          </section>
-        </div>
+            </section>
+            <hr className="modal--division"></hr>
+            <section className="modal--section2">
+              <h4 style={{ fontSize: '25px' }}>Itens recomendados:</h4>
+              <div id="similarList" className="modal--section2-similarList">
+                {similarList &&
+                  similarList.results.map((eachItem, key) => (
+                    <div key={key} className="movieRow--item">
+                      <img
+                        src={`https://image.tmdb.org/t/p/w300/${eachItem.poster_path}`}
+                        alt={eachItem.original_title}
+                        onClick={e => {
+                          e.preventDefault();
+                          setSimilarList(undefined);
+                          frontDisplay(eachItem);
+                          handleModal(eachItem);
+                        }}
+                      ></img>
+                    </div>
+                  ))}
+              </div>
+            </section>
+          </div>
+        ) : (
+          <div className="loading">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/5/54/Ajux_loader.gif"
+              alt="Carregando"
+            ></img>
+          </div>
+        )}
       </div>
     </div>
   );

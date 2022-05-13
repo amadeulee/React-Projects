@@ -8,6 +8,7 @@ import { SeriesInfo } from './ModalModel';
 import { Item, MovieList, Results } from './Model';
 import { MovieModel } from './MovieModel';
 import Tmdb from './services/Tmdb';
+import { Trailer } from './TrailerModel';
 
 function App() {
   const [movieList, setMovieList] = useState<MovieList[]>([]);
@@ -16,6 +17,7 @@ function App() {
   const [chosenDisplay, setChoseDisplay] = useState<Results>();
   const [modalSerie, setModalSerie] = useState<SeriesInfo | MovieModel>();
   const [similarList, setSimilarList] = useState<Item>();
+  const [trailerVideo, setTrailerVideo] = useState<Trailer>();
 
   // console.log(chosenDisplay);
 
@@ -23,18 +25,23 @@ function App() {
     console.log(eachItem.id);
     let similarListTemp;
     let modalInfo;
+    let trailer;
 
     if (eachItem.original_title) {
       modalInfo = await Tmdb.getModalInfo(eachItem.id, 'movie');
       similarListTemp = await Tmdb.getSimilarList(eachItem.id, 'movie');
+      trailer = await Tmdb.getItemTrailer(eachItem.id, 'movie');
     } else {
       modalInfo = await Tmdb.getModalInfo(eachItem.id, 'tv');
       similarListTemp = await Tmdb.getSimilarList(eachItem.id, 'tv');
+      trailer = await Tmdb.getItemTrailer(eachItem.id, 'tv');
     }
 
     setModalSerie(modalInfo);
     setSimilarList(similarListTemp);
-    console.log(similarListTemp);
+    setTrailerVideo(trailer);
+    console.log(trailer);
+    // console.log(similarListTemp);
   };
 
   useEffect(() => {
@@ -57,7 +64,7 @@ function App() {
       );
 
       setFeaturedData(chosenInfo);
-      // console.log(chosenInfo);
+      console.log(chosenInfo);
 
       // console.log(chosenInfo);
       // console.log(featuredData);
@@ -89,6 +96,7 @@ function App() {
           similarList={similarList}
           handleModal={handleModal}
           setSimilarList={setSimilarList}
+          trailerVideo={trailerVideo}
         />
       )}
       <Header black={blackHeader} />

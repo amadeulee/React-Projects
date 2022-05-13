@@ -5,6 +5,7 @@
 
 import axios from 'axios';
 import { Item } from '../Model';
+import { Trailer } from '../TrailerModel';
 import { SeriesInfo } from './../ModalModel';
 import { MovieModel } from './../MovieModel';
 
@@ -119,6 +120,21 @@ export default {
       case 'tv':
         let informations1: Item = await generalFetch(
           `/${type}/${movieId}/similar?language=pt-BR&api_key=${API_KEY}`
+        );
+        return informations1;
+    }
+  },
+  getItemTrailer: async (movieId: string, type: string) => {
+    switch (type) {
+      case 'movie':
+        let informations: Trailer = await generalFetch(
+          `/${type}/${movieId}/videos?api_key=${API_KEY}`
+        );
+        return informations;
+
+      case 'tv':
+        let informations1: Trailer = await generalFetch(
+          `/${type}/${movieId}/videos?api_key=${API_KEY}`
         );
         return informations1;
     }
