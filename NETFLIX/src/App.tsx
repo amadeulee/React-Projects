@@ -15,7 +15,7 @@ function App() {
   const [featuredData, setFeaturedData] = useState<SeriesInfo>();
   const [blackHeader, setBlackHeader] = useState<boolean>(false);
   const [chosenDisplay, setChoseDisplay] = useState<Results>();
-  const [modalSerie, setModalSerie] = useState<SeriesInfo | MovieModel>();
+  const [modalSerie, setModalSerie] = useState<SeriesInfo & MovieModel>();
   const [similarList, setSimilarList] = useState<Item>();
   const [trailerVideo, setTrailerVideo] = useState<Trailer>();
 
@@ -24,7 +24,7 @@ function App() {
   const handleModal = async (eachItem: Results) => {
     console.log(eachItem.id);
     let similarListTemp;
-    let modalInfo;
+    let modalInfo: (SeriesInfo & MovieModel) | undefined;
     let trailer;
 
     if (eachItem.original_title) {
@@ -40,7 +40,7 @@ function App() {
     setModalSerie(modalInfo);
     setSimilarList(similarListTemp);
     setTrailerVideo(trailer);
-    console.log(trailer);
+    console.log(modalInfo);
     // console.log(similarListTemp);
   };
 

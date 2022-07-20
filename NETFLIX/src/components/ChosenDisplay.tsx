@@ -8,7 +8,7 @@ import './ChosenDisplay.css';
 
 type ChosenDisplayProps = {
   frontDisplay: React.Dispatch<React.SetStateAction<Results | undefined>>;
-  modalInfo: SeriesInfo | MovieModel | undefined;
+  modalInfo: (SeriesInfo & MovieModel) | undefined;
   similarList: Item | undefined;
   handleModal: (eachItem: Results) => Promise<void>;
   setSimilarList: React.Dispatch<React.SetStateAction<Item | undefined>>;
@@ -46,7 +46,7 @@ export default ({
           <div className="modal--section">
             <section className="modal--section1">
               {modalInfo !== undefined &&
-              modalInfo.hasOwnProperty('original_name') ? (
+              modalInfo?.hasOwnProperty('original_name') ? (
                 <div className="modal--section1-informations">
                   <h4
                     style={{
@@ -70,6 +70,7 @@ export default ({
                         // height="315"
 
                         src={`https://www.youtube.com/embed/${
+                          trailerVideo?.results?.length >= 1 &&
                           trailerVideo?.results[
                             Math.floor(
                               Math.random() * (trailerVideo?.results.length - 1)
@@ -88,7 +89,7 @@ export default ({
                     </div>
                     <div className="modal--section1-overview">
                       <strong>Descrição: </strong>
-                      {modalInfo.overview}
+                      {modalInfo?.overview}
                     </div>
                   </div>
                 </div>
@@ -116,6 +117,7 @@ export default ({
                           width="560"
                           height="315"
                           src={`https://www.youtube.com/embed/${
+                            trailerVideo?.results?.length >= 1 &&
                             trailerVideo?.results[
                               Math.floor(
                                 Math.random() *
@@ -135,7 +137,7 @@ export default ({
                       </div>
                       <div className="modal--section1-overview">
                         <strong>Descrição: </strong>
-                        {modalInfo.overview}
+                        {modalInfo?.overview}
                       </div>
                     </div>
                   </div>
@@ -166,10 +168,7 @@ export default ({
           </div>
         ) : (
           <div className="loading">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/5/54/Ajux_loader.gif"
-              alt="Carregando"
-            ></img>
+            <img src="https://i.gifer.com/4V0b.gif" alt="Carregando"></img>
           </div>
         )}
       </div>

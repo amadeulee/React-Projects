@@ -69,6 +69,7 @@ const MovieRow = ({
                     setSimilarList(undefined);
                     frontDisplay(eachItem);
                     handleModal(eachItem);
+                    console.log(eachItem);
                   }}
                 ></img>
               </div>

@@ -97,13 +97,13 @@ export default {
   getModalInfo: async (movieId: string, type: string) => {
     switch (type) {
       case 'movie':
-        let informations: SeriesInfo = await generalFetch(
+        let informations: SeriesInfo & MovieModel = await generalFetch(
           `/${type}/${movieId}?language=pt-BR&api_key=${API_KEY}`
         );
         return informations;
 
       case 'tv':
-        let informations1: MovieModel = await generalFetch(
+        let informations1: MovieModel & SeriesInfo = await generalFetch(
           `/${type}/${movieId}?language=pt-BR&api_key=${API_KEY}`
         );
         return informations1;
